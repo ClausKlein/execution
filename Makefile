@@ -163,7 +163,7 @@ build build-interface:
 	  -D CMAKE_EXPORT_COMPILE_COMMANDS=ON \
 	  -D CMAKE_SKIP_INSTALL_RULES=ON \
 	  -D CMAKE_CXX_STANDARD=23 \
-	  -D CMAKE_CXX_EXTENSIONS=ON \
+	  -D CMAKE_CXX_EXTENSIONS=OFF \
 	  -D CMAKE_CXX_STANDARD_REQUIRED=ON \
 	  -D BEMAN_USE_MODULES=OFF \
 	  -D BEMAN_USE_STD_MODULE=OFF \
@@ -184,7 +184,7 @@ module build-module:
 	  -D CMAKE_EXPORT_COMPILE_COMMANDS=ON \
 	  -D CMAKE_SKIP_INSTALL_RULES=OFF \
 	  -D CMAKE_CXX_STANDARD=23 \
-	  -D CMAKE_CXX_EXTENSIONS=ON \
+	  -D CMAKE_CXX_EXTENSIONS=OFF \
 	  -D CMAKE_CXX_STANDARD_REQUIRED=ON \
 	  -D BEMAN_USE_MODULES=ON \
 	  -D BEMAN_USE_STD_MODULE=ON \
@@ -204,13 +204,13 @@ CMakeUserPresets.json:: cmake/CMakeUserPresets.json
 	ln -s $< $@
 
 # ==========================================================
-appleclang-release llvm-release release:
+appleclang-release llvm-release gcc-release release:
 	cmake --preset $@ --log-level=TRACE # XXX --fresh
 	ln -fs $(BUILDROOT)/$@/compile_commands.json .
 	cmake --workflow --preset $@
 
 # ==========================================================
-appleclang-debug llvm-debug debug:
+appleclang-debug llvm-debug gcc-debug debug:
 	cmake --preset $@ --log-level=TRACE # XXX --fresh
 	ln -fs $(BUILDROOT)build/$@/compile_commands.json .
 	cmake --workflow --preset $@
